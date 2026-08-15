@@ -4,23 +4,32 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowUpRight, Cpu } from "lucide-react";
-import { NAV_LINKS } from "@/lib/constants";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { CommandMenu } from "@/components/ui/CommandMenu";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { LanguageSwitcher } from "@/components/theme/LanguageSwitcher";
+import { useI18n } from "@/lib/i18n/I18nProvider";
 
 export function Navbar() {
+  const { t } = useI18n();
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("about");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const navLinks = [
+    { name: t.nav.about, href: "#about", id: "about" },
+    { name: t.nav.projects, href: "#projects", id: "projects" },
+    { name: t.nav.aiLab, href: "#ai-lab", id: "ai-lab" },
+    { name: t.nav.techStack, href: "#skills", id: "skills" },
+    { name: t.nav.experience, href: "#experience", id: "experience" },
+    { name: t.nav.contact, href: "#contact", id: "contact" },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = NAV_LINKS.map((link) => link.href.replace("#", "")).filter(
-        Boolean
-      );
+      const sectionIds = ["about", "projects", "ai-lab", "skills", "experience", "contact"];
 
       // Check if at the very bottom of page -> activate contact
       if (
@@ -39,8 +48,8 @@ export function Navbar() {
 
       const scrollPos = window.scrollY + 220;
 
-      for (let i = sections.length - 1; i >= 0; i--) {
-        const sectionId = sections[i];
+      for (let i = sectionIds.length - 1; i >= 0; i--) {
+        const sectionId = sectionIds[i];
         const el = document.getElementById(sectionId);
         if (el) {
           const top = el.offsetTop;
@@ -52,7 +61,6 @@ export function Navbar() {
       }
     };
 
-    // Run on initial mount
     handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -65,27 +73,25 @@ export function Navbar() {
 
   const handleNavClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
-    href: string
+    href: string,
+    id: string
   ) => {
-    if (href.startsWith("#")) {
-      e.preventDefault();
-      const targetId = href.replace("#", "");
-      setActiveSection(targetId);
-      setMobileMenuOpen(false);
-      const el = document.getElementById(targetId);
-      if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
-      }
+    e.preventDefault();
+    setActiveSection(id);
+    setMobileMenuOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 flex justify-center px-4 py-3 transition-all duration-300">
+    <header className="fixed top-0 left-0 right-0 z-40 flex justify-center px-4 sm:px-6 lg:px-8 py-3 transition-all duration-300">
       <motion.nav
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        className={`w-full max-w-5xl flex items-center justify-between px-4 sm:px-5 py-2 rounded-full transition-all duration-300 ${
+        className={`w-full max-w-7xl flex items-center justify-between px-4 sm:px-6 py-2 rounded-full transition-all duration-300 ${
           scrolled
             ? "bg-white/90 dark:bg-[#111817]/85 backdrop-blur-xl border border-[#D5E2DE] dark:border-[#24302E]/80 shadow-md dark:shadow-[0_8px_30px_rgba(0,0,0,0.4)]"
             : "bg-transparent border border-transparent"
@@ -111,14 +117,14 @@ export function Navbar() {
 
         {/* Desktop Navigation Links with Active Indicator */}
         <div className="hidden md:flex items-center gap-1 bg-[#F1F6F4]/90 dark:bg-[#0C1110]/70 p-1 rounded-full border border-[#D5E2DE] dark:border-[#24302E]/70 backdrop-blur-md">
-          {NAV_LINKS.map((link) => {
-            const isActive = activeSection === link.href.replace("#", "");
+          {navLinks.map((link) => {
+            const isActive = activeSection === link.id;
             return (
               <a
-                key={link.name}
+                key={link.id}
                 href={link.href}
-                onClick={(e) => handleNavClick(e, link.href)}
-                className={`relative px-3.5 py-1 rounded-full text-xs font-medium tracking-wide transition-all select-none ${
+                onClick={(e) => handleNavClick(e, link.href, link.id)}
+                className={`relative px-4 py-1.5 rounded-full text-xs font-medium tracking-wide transition-all select-none ${
                   isActive
                     ? "text-[#267A66] dark:text-[#F1F7F5] font-bold"
                     : "text-[#334A44] hover:text-[#0B1614] dark:text-[#A9B8B4] dark:hover:text-[#F1F7F5]"
@@ -137,8 +143,9 @@ export function Navbar() {
           })}
         </div>
 
-        {/* Right Actions: Search, ThemeToggle, CTA */}
-        <div className="hidden md:flex items-center gap-2.5">
+        {/* Right Actions: LanguageSwitcher, ThemeToggle, Search, CTA */}
+        <div className="hidden md:flex items-center gap-2">
+          <LanguageSwitcher />
           <ThemeToggle />
           <CommandMenu />
           <MagneticButton
@@ -147,7 +154,7 @@ export function Navbar() {
             size="sm"
             className="group"
           >
-            <span>Let&apos;s Talk</span>
+            <span>{t.nav.letsTalk}</span>
             <ArrowUpRight
               size={13}
               className="group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
@@ -156,7 +163,8 @@ export function Navbar() {
         </div>
 
         {/* Mobile Controls */}
-        <div className="flex md:hidden items-center gap-2">
+        <div className="flex md:hidden items-center gap-1.5">
+          <LanguageSwitcher />
           <ThemeToggle />
           <CommandMenu />
           <button
@@ -180,16 +188,16 @@ export function Navbar() {
             className="fixed inset-x-4 top-16 z-40 p-4 rounded-2xl bg-white/95 dark:bg-[#0C1110]/95 backdrop-blur-2xl border border-[#D5E2DE] dark:border-[#24302E] shadow-2xl md:hidden"
           >
             <div className="flex flex-col gap-1.5">
-              {NAV_LINKS.map((link) => {
-                const isActive = activeSection === link.href.replace("#", "");
+              {navLinks.map((link) => {
+                const isActive = activeSection === link.id;
                 return (
                   <a
-                    key={link.name}
+                    key={link.id}
                     href={link.href}
-                    onClick={(e) => handleNavClick(e, link.href)}
+                    onClick={(e) => handleNavClick(e, link.href, link.id)}
                     className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-medium transition-colors ${
                       isActive
-                        ? "bg-[#E5EFEA] text-[#267A66] border border-[#267A66]/30 dark:bg-[#17201F] dark:text-[#9BCEC1] dark:border-[#9BCEC1]/20 font-bold"
+                        ? "bg-[#E0EFEA] text-[#267A66] border border-[#267A66]/30 dark:bg-[#17201F] dark:text-[#9BCEC1] dark:border-[#9BCEC1]/20 font-bold"
                         : "text-[#334A44] hover:text-[#0B1614] hover:bg-[#F1F6F4] dark:text-[#A9B8B4] dark:hover:text-[#F1F7F5] dark:hover:bg-[#111817]"
                     }`}
                   >
@@ -204,10 +212,10 @@ export function Navbar() {
               <div className="pt-3 mt-1 border-t border-[#D5E2DE] dark:border-[#24302E] flex items-center gap-2">
                 <a
                   href="#contact"
-                  onClick={(e) => handleNavClick(e, "#contact")}
+                  onClick={(e) => handleNavClick(e, "#contact", "contact")}
                   className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-full bg-[#267A66] text-white dark:bg-[#9BCEC1] dark:text-[#070A0A] font-semibold text-xs hover:bg-[#1C5B4C] dark:hover:bg-[#C9E6DF] transition-colors"
                 >
-                  <span>Let&apos;s Talk</span>
+                  <span>{t.nav.letsTalk}</span>
                   <ArrowUpRight size={14} />
                 </a>
               </div>

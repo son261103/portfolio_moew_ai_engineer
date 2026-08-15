@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/layout/SmoothScroll";
 import { ThemeProvider } from "@/components/theme/ThemeProvider";
+import { I18nProvider } from "@/lib/i18n/I18nProvider";
 import { SITE_CONFIG } from "@/lib/constants";
 
 const geistSans = Geist({
@@ -28,41 +29,45 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_CONFIG.url),
   title: {
-    default: "Son Nguyen — AI Engineer & Software Architect",
-    template: "%s | Son Nguyen",
+    default: "Pham Le Son — Junior AI Engineer & Backend Developer",
+    template: "%s | Pham Le Son",
   },
   description: SITE_CONFIG.description,
   keywords: [
-    "AI Engineer",
-    "Machine Learning Engineer",
-    "Software Architect",
+    "Pham Le Son",
+    "Junior AI Engineer",
+    "Backend Developer",
     "LLM Applications",
-    "Retrieval-Augmented Generation",
-    "RAG",
-    "Autonomous Agents",
+    "GraphRAG",
+    "RAG Pipelines",
+    "Docling",
+    "Multi-Agent Orchestration",
+    "Hermes",
+    "MCP Protocol",
     "FastAPI",
+    "Python",
+    "Java",
+    "Spring Boot 3",
     "PyTorch",
+    "YOLO11x",
     "Next.js",
     "TypeScript",
-    "vLLM",
-    "Vector Database",
-    "Qdrant",
   ],
   authors: [{ name: SITE_CONFIG.name, url: SITE_CONFIG.url }],
   creator: SITE_CONFIG.name,
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: "vi_VN",
     url: SITE_CONFIG.url,
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
-    siteName: "Son Nguyen Portfolio",
+    siteName: "Pham Le Son Portfolio",
   },
   twitter: {
     card: "summary_large_image",
     title: SITE_CONFIG.title,
     description: SITE_CONFIG.description,
-    creator: "@son_builds",
+    creator: "@son261103",
   },
   robots: {
     index: true,
@@ -77,7 +82,7 @@ export default function RootLayout({
 }) {
   return (
     <html
-      lang="en"
+      lang="vi"
       suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
     >
@@ -94,15 +99,22 @@ export default function RootLayout({
                   document.documentElement.classList.remove('light');
                   document.documentElement.classList.add('dark');
                 }
+
+                const storedLocale = localStorage.getItem('portfolio-locale');
+                if (storedLocale) {
+                  document.documentElement.lang = storedLocale;
+                }
               } catch (e) {}
             `,
           }}
         />
       </head>
       <body className="min-h-screen font-sans transition-colors duration-200">
-        <ThemeProvider>
-          <SmoothScroll>{children}</SmoothScroll>
-        </ThemeProvider>
+        <I18nProvider>
+          <ThemeProvider>
+            <SmoothScroll>{children}</SmoothScroll>
+          </ThemeProvider>
+        </I18nProvider>
       </body>
     </html>
   );

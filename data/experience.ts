@@ -1,10 +1,9 @@
-export interface ExperienceItem {
+export interface Experience {
   id: string;
   role: string;
   company: string;
-  location: string;
   period: string;
-  type: "Full-Time" | "Contract" | "Open Source";
+  location: string;
   summary: string;
   achievements: string[];
   technologies: string[];
@@ -14,67 +13,89 @@ export interface ExperienceItem {
   };
 }
 
-export const EXPERIENCES: ExperienceItem[] = [
+export const EXPERIENCES: Experience[] = [
   {
-    id: "lead-ai-engineer",
-    role: "Lead AI Engineer",
-    company: "Synthetix Labs",
-    location: "San Francisco, CA (Remote)",
-    period: "2024 — Present",
-    type: "Full-Time",
+    id: "redai",
+    role: "Junior Backend Developer (AI & Backend Services)",
+    company: "RedAI",
+    period: "04/2025 – 07/2026",
+    location: "Ha Noi, Vietnam",
     summary:
-      "Leading architecture and production deployment of hybrid RAG engines, autonomous multi-agent tool executors, and enterprise LLM inference pipelines.",
+      "Architected FastAPI backend services for full-featured AI media generation and engineered custom GraphRAG, multi-agent orchestration harnesses, and document processing pipelines.",
     achievements: [
-      "Architected hybrid vector + knowledge graph search serving 2.5M queries/month with 94.8% retrieval accuracy and 185ms p95 latency.",
-      "Engineered continuous batching and INT8 model quantization on vLLM clusters, slashing cloud GPU infrastructure costs by 54% ($140K/yr).",
-      "Designed deterministic agentic execution runtime with AST parsing tools and automated lint verification loops.",
-      "Mentored a team of 6 engineers on MLOps best practices, LLM evaluation harnesses, and strict schema-constrained decoding.",
+      "Architected and built a FastAPI backend for an AI media generation platform covering text-to-image, image-to-video, motion/dance transfer, voice cloning, face swap, lip sync, upscale, and music generation.",
+      "Designed and built a custom GraphRAG pipeline combining Docling document parsing, semantic chunking, LLM-based node/edge extraction, and a graph-merge layer for high-precision multi-hop reasoning.",
+      "Engineered agent-orchestration harness patterns (circuit-breaker/retry logic, structured JSON tool interfaces, context compression) to coordinate multiple coding-CLI subagents (Claude Code, Codex CLI, Gemini CLI).",
+      "Built modular document processing pipelines supporting PDF, DOCX, Markdown, HTML, OCR, and structured data extraction for enterprise knowledge bases.",
+      "Designed a multi-provider abstraction layer with a centralized model registry orchestrating WaveSpeed, fal.ai, SiliconFlow, Fish Audio, piapi.ai, and OpenRouter with fallback chains and async rate-limit handling.",
     ],
-    technologies: ["Python", "PyTorch", "vLLM", "Qdrant", "Neo4j", "FastAPI", "Docker", "LangGraph"],
+    technologies: [
+      "Python",
+      "FastAPI",
+      "RAG & GraphRAG",
+      "Docling",
+      "LangChain",
+      "Vector Search",
+      "PostgreSQL",
+      "Multi-Agent (Hermes)",
+      "MCP Protocol",
+    ],
     impactMetric: {
-      label: "Retrieval Accuracy Lift",
-      value: "+42%",
+      label: "AI Pipeline Ecosystem",
+      value: "Multi-Provider RAG",
     },
   },
   {
-    id: "senior-ml-engineer",
-    role: "Senior Machine Learning Engineer",
-    company: "Cognitive Scale AI",
-    location: "Singapore / Remote",
-    period: "2022 — 2024",
-    type: "Full-Time",
+    id: "dtn-ecommerce",
+    role: "Intern Java Developer",
+    company: "DTN E-Commerce Solutions",
+    period: "12/2024 – 03/2025",
+    location: "Ha Noi, Vietnam",
     summary:
-      "Built low-latency computer vision edge inference engines and unstructured document intelligence pipelines for fintech clients.",
+      "Developed and optimized RESTful APIs for a high-traffic e-commerce platform using Spring Boot 3, Spring Security 6, MySQL, and React.js.",
     achievements: [
-      "Optimized YOLOv10 and multimodal Vision Transformers with TensorRT C++ pipelines, achieving 11.4ms frame latency at 4K resolution.",
-      "Developed schema-constrained document extraction platform with zero syntax errors across 500k+ complex financial statements.",
-      "Implemented automated CI/CD model regression testing with GitHub Actions and Weights & Biases telemetry.",
-      "Pioneered distributed synthetic dataset generation pipelines with Ray, producing 300k+ high-diversity instruction pairs.",
+      "Developed and optimized RESTful APIs using Spring Boot 3 and MySQL, handling product catalog, order management, inventory, and user authentication.",
+      "Implemented role-based access control with Spring Security 6 and JWT authentication to secure sensitive API endpoints.",
+      "Wrote and optimized complex MySQL queries with indexing strategies, substantially improving average response time on product listing endpoints.",
+      "Integrated React.js frontend components with backend services via REST APIs, collaborating with frontend teams on strict data contracts.",
     ],
-    technologies: ["C++", "CUDA", "TensorRT", "FastAPI", "PostgreSQL", "Docker", "Mistral", "Ray"],
+    technologies: [
+      "Java",
+      "Spring Boot 3",
+      "Spring Security 6",
+      "JWT",
+      "MySQL",
+      "React.js",
+      "Flyway",
+      "RESTful API",
+    ],
     impactMetric: {
-      label: "Inference Latency Reduction",
-      value: "-65%",
+      label: "API & DB Optimization",
+      value: "Spring Boot 3 + JWT",
     },
   },
   {
-    id: "software-engineer",
-    role: "Backend & Systems Engineer",
-    company: "Nexus Cloud Systems",
-    location: "Hanoi, Vietnam",
-    period: "2021 — 2022",
-    type: "Full-Time",
+    id: "vptech",
+    role: "Technical Staff",
+    company: "VPTECH VN",
+    period: "11/2022 – 07/2024",
+    location: "Ha Noi, Vietnam",
     summary:
-      "Designed and scaled distributed microservices, event-driven streaming architectures, and real-time analytical databases.",
+      "Provided enterprise technical support, system troubleshooting, and independently mastered Python programming and backend development foundations.",
     achievements: [
-      "Built resilient gRPC microservices in Node.js and Go handling 12,000 req/sec at peak load with 99.99% uptime.",
-      "Engineered high-speed Redis semantic cache layers reducing primary PostgreSQL query loads by 78%.",
-      "Architected real-time WebSocket communication infrastructure for multi-tenant collaborative dashboards.",
+      "Provided technical support and resolved hardware/software issues for internal teams, developing a structured analytical approach to troubleshooting complex technical problems.",
+      "Self-studied Python programming, data structures, algorithms, and backend architecture concepts, establishing the technical foundation for subsequent AI engineering roles.",
     ],
-    technologies: ["TypeScript", "Node.js", "Go", "PostgreSQL", "Redis", "gRPC", "Docker", "AWS"],
+    technologies: [
+      "Python",
+      "System Troubleshooting",
+      "Hardware / Software",
+      "Network Basics",
+      "Linux CLI",
+    ],
     impactMetric: {
-      label: "Peak Throughput Handled",
-      value: "12k rps",
+      label: "Foundation Track",
+      value: "Tech Staff → AI Dev",
     },
   },
 ];

@@ -3,12 +3,14 @@
 import React, { useState } from "react";
 import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
 import confetti from "canvas-confetti";
+import { useI18n } from "@/lib/i18n/I18nProvider";
 
 export function ContactForm() {
+  const { t } = useI18n();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    systemType: "AI Architecture & RAG",
+    systemType: t.contact.form.options[0] || "Junior AI Engineer / Backend Developer Role",
     message: "",
   });
 
@@ -38,12 +40,12 @@ export function ContactForm() {
         particleCount: 60,
         spread: 70,
         origin: { y: 0.8 },
-        colors: ["#2D7A68", "#9BCEC1", "#6FAFA0", "#C9E6DF", "#FFFFFF"],
+        colors: ["#267A66", "#9BCEC1", "#6FAFA0", "#C9E6DF", "#FFFFFF"],
       });
       setFormData({
         name: "",
         email: "",
-        systemType: "AI Architecture & RAG",
+        systemType: t.contact.form.options[0] || "Junior AI Engineer / Backend Developer Role",
         message: "",
       });
     } catch (err: unknown) {
@@ -59,14 +61,14 @@ export function ContactForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-[#0C1110] border border-[#D1DDD9] dark:border-[#24302E] shadow-sm dark:shadow-none space-y-5"
+      className="p-5 sm:p-7 rounded-2xl bg-white dark:bg-[#0C1110] border border-[#D5E2DE] dark:border-[#24302E] shadow-sm dark:shadow-none space-y-5"
     >
-      <div className="flex items-center justify-between border-b border-[#D1DDD9] dark:border-[#24302E] pb-3 mb-2">
-        <span className="text-xs font-mono-tech uppercase tracking-wider text-[#2D7A68] dark:text-[#9BCEC1] font-bold">
-          Direct Transmission Channel
+      <div className="flex items-center justify-between border-b border-[#D5E2DE] dark:border-[#24302E] pb-3 mb-2">
+        <span className="text-xs font-mono-tech uppercase tracking-wider text-[#267A66] dark:text-[#9BCEC1] font-bold">
+          {t.contact.form.title}
         </span>
-        <span className="text-[10px] font-mono-tech text-[#627772] dark:text-[#6F7E7A]">
-          SSL Encrypted
+        <span className="text-[10px] font-mono-tech text-[#627A74] dark:text-[#6F7E7A]">
+          {t.contact.form.ssl}
         </span>
       </div>
 
@@ -74,9 +76,9 @@ export function ContactForm() {
         <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 text-xs font-mono-tech flex items-start gap-2.5">
           <CheckCircle2 size={16} className="shrink-0 mt-0.5" />
           <div>
-            <div className="font-bold">Transmission Dispatched Successfully</div>
+            <div className="font-bold">{t.contact.form.successTitle}</div>
             <div className="text-emerald-600/90 dark:text-emerald-300/80 mt-0.5">
-              Thank you for reaching out. I will review your requirements and respond within 24 hours.
+              {t.contact.form.successDesc}
             </div>
           </div>
         </div>
@@ -86,7 +88,7 @@ export function ContactForm() {
         <div className="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-600 dark:text-rose-400 text-xs font-mono-tech flex items-start gap-2.5">
           <AlertCircle size={16} className="shrink-0 mt-0.5" />
           <div>
-            <div className="font-bold">Dispatch Failed</div>
+            <div className="font-bold">{t.contact.form.errorTitle}</div>
             <div className="text-rose-500/90 dark:text-rose-300/80 mt-0.5">{errorMessage}</div>
           </div>
         </div>
@@ -95,64 +97,64 @@ export function ContactForm() {
       {/* Name and Email Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-1.5">
-          <label className="text-[11px] font-mono-tech uppercase text-[#627772] dark:text-[#6F7E7A]">
-            Your Name *
+          <label className="text-[11px] font-mono-tech uppercase text-[#627A74] dark:text-[#6F7E7A]">
+            {t.contact.form.nameLabel}
           </label>
           <input
             type="text"
             required
-            placeholder="Dr. Alex Vance"
+            placeholder={t.contact.form.namePlaceholder}
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-3.5 py-2.5 rounded-xl bg-[#F4F8F6] dark:bg-[#111817] border border-[#D1DDD9] dark:border-[#24302E] text-xs font-mono-tech text-[#0D1715] dark:text-[#F1F7F5] placeholder-[#8C9F9A] dark:placeholder-[#6F7E7A] focus:outline-none focus:border-[#2D7A68]/60 dark:focus:border-[#9BCEC1]/60 transition-colors"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-[#F1F6F4] dark:bg-[#111817] border border-[#D5E2DE] dark:border-[#24302E] text-xs font-mono-tech text-[#0B1614] dark:text-[#F1F7F5] placeholder-[#8C9F9A] dark:placeholder-[#6F7E7A] focus:outline-none focus:border-[#267A66]/60 dark:focus:border-[#9BCEC1]/60 transition-colors"
           />
         </div>
 
         <div className="space-y-1.5">
-          <label className="text-[11px] font-mono-tech uppercase text-[#627772] dark:text-[#6F7E7A]">
-            Email Address *
+          <label className="text-[11px] font-mono-tech uppercase text-[#627A74] dark:text-[#6F7E7A]">
+            {t.contact.form.emailLabel}
           </label>
           <input
             type="email"
             required
-            placeholder="alex@organization.ai"
+            placeholder={t.contact.form.emailPlaceholder}
             value={formData.email}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-            className="w-full px-3.5 py-2.5 rounded-xl bg-[#F4F8F6] dark:bg-[#111817] border border-[#D1DDD9] dark:border-[#24302E] text-xs font-mono-tech text-[#0D1715] dark:text-[#F1F7F5] placeholder-[#8C9F9A] dark:placeholder-[#6F7E7A] focus:outline-none focus:border-[#2D7A68]/60 dark:focus:border-[#9BCEC1]/60 transition-colors"
+            className="w-full px-3.5 py-2.5 rounded-xl bg-[#F1F6F4] dark:bg-[#111817] border border-[#D5E2DE] dark:border-[#24302E] text-xs font-mono-tech text-[#0B1614] dark:text-[#F1F7F5] placeholder-[#8C9F9A] dark:placeholder-[#6F7E7A] focus:outline-none focus:border-[#267A66]/60 dark:focus:border-[#9BCEC1]/60 transition-colors"
           />
         </div>
       </div>
 
       {/* Topic / System Type */}
       <div className="space-y-1.5">
-        <label className="text-[11px] font-mono-tech uppercase text-[#627772] dark:text-[#6F7E7A]">
-          Discussion Area / Project Scope
+        <label className="text-[11px] font-mono-tech uppercase text-[#627A74] dark:text-[#6F7E7A]">
+          {t.contact.form.scopeLabel}
         </label>
         <select
           value={formData.systemType}
           onChange={(e) => setFormData({ ...formData, systemType: e.target.value })}
-          className="w-full px-3.5 py-2.5 rounded-xl bg-[#F4F8F6] dark:bg-[#111817] border border-[#D1DDD9] dark:border-[#24302E] text-xs font-mono-tech text-[#0D1715] dark:text-[#F1F7F5] focus:outline-none focus:border-[#2D7A68]/60 dark:focus:border-[#9BCEC1]/60 transition-colors cursor-pointer"
+          className="w-full px-3.5 py-2.5 rounded-xl bg-[#F1F6F4] dark:bg-[#111817] border border-[#D5E2DE] dark:border-[#24302E] text-xs font-mono-tech text-[#0B1614] dark:text-[#F1F7F5] focus:outline-none focus:border-[#267A66]/60 dark:focus:border-[#9BCEC1]/60 transition-colors cursor-pointer"
         >
-          <option value="AI Architecture & RAG">Production RAG & Vector Retrieval</option>
-          <option value="Autonomous Agent Workflows">Autonomous Agents & DAG Systems</option>
-          <option value="LLM Inference Optimization">LLM Inference & Quantization</option>
-          <option value="Full-Time Engineering Role">Full-Time Engineering Opportunity</option>
-          <option value="Technical Advisory / Other">Technical Advisory & Consultation</option>
+          {t.contact.form.options.map((opt) => (
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
+          ))}
         </select>
       </div>
 
       {/* Message */}
       <div className="space-y-1.5">
-        <label className="text-[11px] font-mono-tech uppercase text-[#627772] dark:text-[#6F7E7A]">
-          Project Details / Architecture Requirements *
+        <label className="text-[11px] font-mono-tech uppercase text-[#627A74] dark:text-[#6F7E7A]">
+          {t.contact.form.messageLabel}
         </label>
         <textarea
           required
           rows={4}
-          placeholder="Describe your system challenges, throughput requirements, or team mission..."
+          placeholder={t.contact.form.messagePlaceholder}
           value={formData.message}
           onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-          className="w-full px-3.5 py-2.5 rounded-xl bg-[#F4F8F6] dark:bg-[#111817] border border-[#D1DDD9] dark:border-[#24302E] text-xs font-mono-tech text-[#0D1715] dark:text-[#F1F7F5] placeholder-[#8C9F9A] dark:placeholder-[#6F7E7A] focus:outline-none focus:border-[#2D7A68]/60 dark:focus:border-[#9BCEC1]/60 transition-colors resize-none leading-relaxed"
+          className="w-full px-3.5 py-2.5 rounded-xl bg-[#F1F6F4] dark:bg-[#111817] border border-[#D5E2DE] dark:border-[#24302E] text-xs font-mono-tech text-[#0B1614] dark:text-[#F1F7F5] placeholder-[#8C9F9A] dark:placeholder-[#6F7E7A] focus:outline-none focus:border-[#267A66]/60 dark:focus:border-[#9BCEC1]/60 transition-colors resize-none leading-relaxed"
         />
       </div>
 
@@ -160,17 +162,17 @@ export function ContactForm() {
       <button
         type="submit"
         disabled={status === "loading"}
-        className="w-full py-3 rounded-xl bg-[#2D7A68] text-white dark:bg-[#9BCEC1] dark:text-[#070A0A] font-mono-tech font-bold text-xs uppercase tracking-wider hover:bg-[#1E5649] dark:hover:bg-[#C9E6DF] transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer shadow-md dark:shadow-[0_0_20px_rgba(155,206,193,0.25)]"
+        className="w-full py-3 rounded-xl bg-[#267A66] text-white dark:bg-[#9BCEC1] dark:text-[#070A0A] font-mono-tech font-bold text-xs uppercase tracking-wider hover:bg-[#1C5B4C] dark:hover:bg-[#C9E6DF] transition-all flex items-center justify-center gap-2 disabled:opacity-50 cursor-pointer shadow-md dark:shadow-[0_0_20px_rgba(155,206,193,0.25)]"
       >
         {status === "loading" ? (
           <>
             <Loader2 size={14} className="animate-spin" />
-            <span>Transmitting Payload...</span>
+            <span>{t.contact.form.submittingButton}</span>
           </>
         ) : (
           <>
             <Send size={14} />
-            <span>Transmit Message</span>
+            <span>{t.contact.form.submitButton}</span>
           </>
         )}
       </button>

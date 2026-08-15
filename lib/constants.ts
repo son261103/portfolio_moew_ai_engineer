@@ -1,19 +1,35 @@
 export const SITE_CONFIG = {
-  name: "Son Nguyen",
-  title: "Son Nguyen — AI Engineer & Software Architect",
-  tagline: "AI Engineer / Software Engineer",
+  name: "Pham Le Son",
+  shortName: "Son Pham",
+  title: "Pham Le Son — Junior AI Engineer & Backend Developer",
+  role: "Junior AI Engineer",
+  tagline: "LLM Applications · Custom GraphRAG · Multi-Agent Orchestration · FastAPI & Spring Boot",
   description:
-    "Building intelligent systems, production-grade LLM applications, low-latency backends, and autonomous agentic workflows.",
-  url: "https://son.dev",
-  ogImage: "https://son.dev/og.png",
-  email: "contact@son.dev",
-  github: "https://github.com/roser-ai",
-  linkedin: "https://linkedin.com/in/son-nguyen-ai",
-  x: "https://x.com/son_builds",
+    "Junior AI Engineer with hands-on experience building applications powered by Large Language Models (LLMs), custom RAG/GraphRAG pipelines, AI agent orchestration systems, and production backend services.",
+  url: "https://sonpham.dev",
+  ogImage: "https://sonpham.dev/og.png",
+  email: "sonphaman5@gmail.com",
+  phone: "0789.282.470",
+  location: "Bac Tu Liem, Ha Noi, Vietnam",
+  github: "https://github.com/son261103",
+  githubUsername: "son261103",
+  linkedin: "https://linkedin.com/in/son261103",
   status: {
     available: true,
-    message: "Available for high-impact AI/ML roles & advisory",
+    message: "Open for Junior AI Engineer & Backend Developer Roles",
   },
+  education: [
+    {
+      institution: "East Asia University of Technology (EAUT)",
+      major: "Information Technology",
+      period: "Graduated 2025",
+    },
+    {
+      institution: "Devmaster – Institute of Technology",
+      major: "Java Backend & React.js Courses",
+      period: "11/2023 – 10/2024",
+    },
+  ],
 };
 
 export const NAV_LINKS = [

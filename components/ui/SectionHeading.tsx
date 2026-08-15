@@ -21,7 +21,7 @@ export function SectionHeading({
   return (
     <div
       className={`mb-6 md:mb-8 ${
-        isCenter ? "text-center mx-auto max-w-2xl" : "max-w-2xl"
+        isCenter ? "text-center mx-auto max-w-5xl" : "max-w-5xl"
       } ${className}`}
     >
       <Reveal preset="fadeUp" delay={0.1}>
@@ -43,7 +43,7 @@ export function SectionHeading({
 
       {subtitle && (
         <Reveal preset="fadeUp" delay={0.3}>
-          <p className="mt-2.5 text-[#334A44] dark:text-[#A9B8B4] text-sm sm:text-base leading-relaxed">
+          <p className="mt-2.5 text-[#334A44] dark:text-[#A9B8B4] text-sm sm:text-base leading-relaxed max-w-5xl text-pretty">
             {subtitle}
           </p>
         </Reveal>

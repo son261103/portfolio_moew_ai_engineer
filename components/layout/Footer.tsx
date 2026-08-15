@@ -3,10 +3,21 @@
 import React, { useState, useEffect } from "react";
 import { ArrowUp, Mail, Cpu } from "lucide-react";
 import { GithubIcon, LinkedinIcon } from "@/components/ui/Icons";
-import { SITE_CONFIG, NAV_LINKS } from "@/lib/constants";
+import { SITE_CONFIG } from "@/lib/constants";
+import { useI18n } from "@/lib/i18n/I18nProvider";
 
 export function Footer() {
+  const { t } = useI18n();
   const [time, setTime] = useState<string>("");
+
+  const navLinks = [
+    { name: t.nav.about, href: "#about" },
+    { name: t.nav.projects, href: "#projects" },
+    { name: t.nav.aiLab, href: "#ai-lab" },
+    { name: t.nav.techStack, href: "#skills" },
+    { name: t.nav.experience, href: "#experience" },
+    { name: t.nav.contact, href: "#contact" },
+  ];
 
   useEffect(() => {
     const updateTime = () => {
@@ -36,7 +47,7 @@ export function Footer() {
       {/* Subtle top ambient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-px bg-gradient-to-r from-transparent via-[#267A66]/30 dark:via-[#9BCEC1]/40 to-transparent" />
 
-      <div className="max-w-6xl mx-auto px-6 py-10 sm:py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-8 border-b border-[#D5E2DE] dark:border-[#24302E]">
           {/* Col 1: Brand & Philosophy */}
           <div className="md:col-span-5 space-y-3">
@@ -50,13 +61,13 @@ export function Footer() {
             </div>
 
             <p className="text-xs sm:text-sm text-[#334A44] dark:text-[#A9B8B4] max-w-sm leading-relaxed">
-              Architecting resilient AI pipelines, deterministic autonomous agents, and high-throughput production backends.
+              {t.footer.tagline}
             </p>
 
             {/* System Status telemetry badge */}
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1F6F4] text-[#334A44] border border-[#D5E2DE] dark:bg-[#111817] dark:text-[#A9B8B4] dark:border-[#24302E] text-xs font-mono-tech">
               <span className="w-2 h-2 rounded-full bg-[#267A66] dark:bg-[#9BCEC1] animate-pulse" />
-              <span>All Systems Nominal</span>
+              <span>{t.footer.allSystems}</span>
               <span className="text-[#627A74] dark:text-[#6F7E7A]">•</span>
               <span className="text-[#267A66] dark:text-[#9BCEC1] font-semibold" suppressHydrationWarning>{time || "UTC Live"}</span>
             </div>
@@ -65,10 +76,10 @@ export function Footer() {
           {/* Col 2: Navigation Links */}
           <div className="md:col-span-3 space-y-2.5">
             <div className="text-[11px] font-mono-tech uppercase tracking-widest text-[#627A74] dark:text-[#6F7E7A] font-semibold">
-              Navigation
+              {t.footer.navigation}
             </div>
             <ul className="space-y-1.5 text-xs sm:text-sm">
-              {NAV_LINKS.map((link) => (
+              {navLinks.map((link) => (
                 <li key={link.name}>
                   <a
                     href={link.href}
@@ -84,7 +95,7 @@ export function Footer() {
           {/* Col 3: Network & Connectivity */}
           <div className="md:col-span-4 space-y-2.5">
             <div className="text-[11px] font-mono-tech uppercase tracking-widest text-[#627A74] dark:text-[#6F7E7A] font-semibold">
-              Connect & Verify
+              {t.footer.connect}
             </div>
             <div className="flex flex-col gap-2 text-xs sm:text-sm">
               <a
@@ -94,7 +105,7 @@ export function Footer() {
                 className="flex items-center gap-2.5 text-[#334A44] hover:text-[#0B1614] dark:text-[#A9B8B4] dark:hover:text-[#F1F7F5] transition-colors group"
               >
                 <GithubIcon size={15} className="text-[#627A74] group-hover:text-[#267A66] dark:group-hover:text-[#9BCEC1]" />
-                <span>github.com/roser-ai</span>
+                <span>github.com/{SITE_CONFIG.githubUsername}</span>
               </a>
               <a
                 href={SITE_CONFIG.linkedin}
@@ -103,7 +114,7 @@ export function Footer() {
                 className="flex items-center gap-2.5 text-[#334A44] hover:text-[#0B1614] dark:text-[#A9B8B4] dark:hover:text-[#F1F7F5] transition-colors group"
               >
                 <LinkedinIcon size={15} className="text-[#627A74] group-hover:text-[#267A66] dark:group-hover:text-[#9BCEC1]" />
-                <span>linkedin.com/in/son-nguyen-ai</span>
+                <span>linkedin.com/in/{SITE_CONFIG.githubUsername}</span>
               </a>
               <a
                 href={`mailto:${SITE_CONFIG.email}`}
@@ -119,14 +130,14 @@ export function Footer() {
         {/* Bottom bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 pt-6 text-[11px] font-mono-tech text-[#627A74] dark:text-[#6F7E7A]">
           <div>
-            © {new Date().getFullYear()} Son Nguyen. Built with Next.js 15, TypeScript & Tailwind CSS.
+            © {new Date().getFullYear()} {t.footer.rights}
           </div>
 
           <button
             onClick={scrollToTop}
             className="flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1F6F4] text-[#334A44] border border-[#D5E2DE] hover:text-[#267A66] hover:border-[#267A66]/40 dark:bg-[#111817] dark:text-[#A9B8B4] dark:border-[#24302E] dark:hover:text-[#9BCEC1] transition-all cursor-pointer shadow-sm dark:shadow-none"
           >
-            <span>Back to top</span>
+            <span>{t.footer.backToTop}</span>
             <ArrowUp size={12} />
           </button>
         </div>

@@ -2,335 +2,243 @@ export interface Project {
   slug: string;
   title: string;
   tagline: string;
-  category: "AI Systems" | "LLM / RAG" | "Autonomous Agents" | "Backend / Infra";
+  category: "LLM / RAG" | "Autonomous Agents" | "AI Systems" | "Backend / Infra";
+  date: string;
+  featured: boolean;
   description: string;
   fullOverview: string;
-  featured: boolean;
-  metrics: { label: string; value: string }[];
-  technologies: string[];
+  metrics: {
+    label: string;
+    value: string;
+  }[];
   architecture: {
     title: string;
     flow: string[];
     details: string;
   };
   highlights: string[];
+  technologies: string[];
+  githubUrl?: string;
+  liveUrl?: string;
   benchmark: {
     latency: string;
     throughput: string;
     accuracy: string;
     costReduction: string;
   };
-  githubUrl: string;
-  liveUrl?: string;
-  paperUrl?: string;
-  date: string;
 }
 
 export const PROJECTS: Project[] = [
   {
-    slug: "omnirag-engine",
-    title: "OmniRAG Engine",
-    tagline: "Enterprise Hybrid Vector & Knowledge Graph RAG with Self-Correction",
+    slug: "custom-graphrag-pipeline",
+    title: "Custom GraphRAG & Multi-Provider AI Platform",
+    tagline: "Docling Document Parsing, Semantic Graph-Merge & Multi-Provider Generative Orchestration",
     category: "LLM / RAG",
+    date: "2025 – 2026",
     featured: true,
     description:
-      "A production-grade Retrieval-Augmented Generation pipeline uniting dense vector search (Qdrant), sparse BM25, and Neo4j knowledge graphs with reciprocal rank fusion and hallucination verification.",
+      "A custom GraphRAG pipeline engineered to solve multi-hop reasoning over complex documents by combining Docling parsing, semantic chunking, LLM-based entity/relation extraction, and a graph-merge layer, paired with a centralized model registry orchestrating OpenRouter, fal.ai, WaveSpeed, SiliconFlow, and Fish Audio.",
     fullOverview:
-      "OmniRAG solves the fundamental context degradation problem in multi-hop question answering across enterprise corpora. By integrating contextual chunking, dense embeddings (text-embedding-3-large), and structural knowledge graphs, the system performs dynamic query decomposition and reranking via Cohere Rerank v3. Built-in guardrails detect semantic hallucinations using automated NLI verification before responding.",
+      "Engineered during work at RedAI, this system addresses the limitations of standard naive RAG when handling multi-document, relational queries. Rather than adopting rigid off-the-shelf wrappers, a custom GraphRAG engine was built from scratch. It parses complex PDFs, DOCX, and scanned documents using Docling with OCR, extracts semantic chunks, runs LLM-guided node and edge extraction, and fuses knowledge into a graph-merge layer. In addition, the platform features a unified provider abstraction layer with fallback chains and async rate-limit handling across multiple generative AI providers.",
     metrics: [
-      { label: "Retrieval Accuracy", value: "94.8% (+38%)" },
-      { label: "p95 Query Latency", value: "185ms" },
-      { label: "Token Cost Reduction", value: "54%" },
+      { label: "Reasoning Accuracy", value: "Multi-Hop Graph" },
+      { label: "Providers Unified", value: "6+ AI Engines" },
+      { label: "Document Ingestion", value: "Docling + OCR" },
+    ],
+    architecture: {
+      title: "Docling Parsing → Semantic Graph Extraction → Multi-Provider Inference",
+      flow: [
+        "Raw Ingestion (PDF / DOCX / HTML / OCR)",
+        "Docling Layout Analysis & Semantic Chunking",
+        "LLM-Based Entity & Edge Extraction",
+        "Graph-Merge Knowledge Layer & Vector Search",
+        "Centralized Model Registry & Fallback Chain",
+      ],
+      details:
+        "FastAPI asynchronous backend with centralized model registry handling WaveSpeed, fal.ai, SiliconFlow, Fish Audio, piapi.ai, and OpenRouter with automatic fallback chains and per-provider rate-limit management.",
+    },
+    highlights: [
+      "Custom GraphRAG pipeline combining Docling parsing, semantic chunking, and graph-merge layers for complex reasoning.",
+      "Multi-provider abstraction layer orchestrating text-to-image, video, motion transfer, voice cloning, and face swap.",
+      "Resilient async fallback chains ensuring 99.9% uptime during third-party API rate-limiting.",
+      "Modular document processing pipeline supporting PDF, DOCX, Markdown, HTML, and OCR.",
     ],
     technologies: [
       "Python",
       "FastAPI",
-      "Qdrant",
-      "Neo4j",
+      "GraphRAG",
+      "Docling",
       "LangChain",
-      "vLLM",
-      "PyTorch",
-      "Docker",
-    ],
-    architecture: {
-      title: "Hybrid Multi-Stage Retrieval & Verification Pipeline",
-      flow: [
-        "User Query Analyzer & Intent Classifier",
-        "Parallel Dense Embedding + Sparse BM25 + KG Subgraph Extraction",
-        "Reciprocal Rank Fusion (RRF) & Cross-Encoder Reranking",
-        "Context Window Compression & Dynamic Sliding Window",
-        "LLM Generation with Grounding Citations",
-        "Hallucination Guard & NLI Factual Consistency Check",
-      ],
-      details:
-        "Processes >10M document tokens daily with sub-200ms latency. Implements adaptive caching and semantic deduplication in Redis to minimize repetitive LLM API invocations.",
-    },
-    highlights: [
-      "Dynamic contextual chunking preserving semantic coherence across markdown, PDF, and code files",
-      "Self-reflective query rewrite loop triggered when top-k cosine similarity drops below 0.72",
-      "Strict JSON output validation using Pydantic and instructor for guaranteed downstream automation compatibility",
-      "Custom Prometheus metrics export for token-per-second, TTFT, and retrieval relevance monitoring",
-    ],
-    benchmark: {
-      latency: "185ms p95",
-      throughput: "450 req/sec",
-      accuracy: "94.8% HotpotQA",
-      costReduction: "-54% tokens",
-    },
-    githubUrl: "https://github.com/roser-ai/omnirag-engine",
-    liveUrl: "https://omnirag.demo.son.dev",
-    date: "2025 - Present",
-  },
-  {
-    slug: "neuralflow-agent",
-    title: "NeuralFlow Orchestrator",
-    tagline: "Deterministic Multi-Agent Framework with Reasoning Checkpoints",
-    category: "Autonomous Agents",
-    featured: true,
-    description:
-      "An asynchronous multi-agent coordination engine built for multi-step software engineering tasks, featuring DAG-based dependency resolution, sandbox code execution, and reversible state rollbacks.",
-    fullOverview:
-      "Traditional autonomous agents suffer from stochastic derailment on long-horizon tasks. NeuralFlow implements hierarchical state machines where a Planner Agent breaks user requirements into directed acyclic task graphs, while specialized Worker Agents execute tools within isolated gVisor/Docker containers. Each state transition is validated against deterministic unit tests with automatic state snapshot rollbacks.",
-    metrics: [
-      { label: "Task Success Rate", value: "88.2% SWE-bench lite" },
-      { label: "Parallel Tool Execution", value: "8x speedup" },
-      { label: "Container Startup", value: "<120ms" },
-    ],
-    technologies: [
-      "TypeScript",
-      "Node.js",
-      "Python",
-      "Docker",
-      "Redis",
+      "Vector Search",
       "PostgreSQL",
-      "gRPC",
+      "OpenRouter",
+      "fal.ai",
+      "SiliconFlow",
     ],
-    architecture: {
-      title: "Hierarchical Supervisor-Worker DAG Architecture",
-      flow: [
-        "Natural Language Goal Ingestion",
-        "Supervisor Agent: Topological Plan & Subagent Instantiation",
-        "Isolated Sandboxed Execution (CLI, AST, Browser)",
-        "Automated Lint & Test Feedback Loop",
-        "Checkpoint State Commit / Rollback Mechanism",
-      ],
-      details:
-        "Employs gRPC streaming for real-time telemetry and state replication across clustered execution nodes.",
-    },
-    highlights: [
-      "Custom AST parsing tool to safely modify codebases without destructive whole-file rewrites",
-      "Token budget optimizer with sliding semantic memory compression",
-      "Fine-grained human-in-the-loop approval gates for destructive shell and database actions",
-      "Live execution tree inspector rendered via WebSocket web telemetry",
-    ],
+    githubUrl: "https://github.com/son261103",
     benchmark: {
-      latency: "1.2s per step",
-      throughput: "35 concurrent DAGs",
-      accuracy: "88.2% SWE-bench",
-      costReduction: "-40% re-tries",
+      latency: "140ms p95",
+      throughput: "Multi-Provider Async",
+      accuracy: "High Multi-Hop Precision",
+      costReduction: "40% Cost Savings via Fallback",
     },
-    githubUrl: "https://github.com/roser-ai/neuralflow-agent",
-    liveUrl: "https://neuralflow.demo.son.dev",
-    date: "2024 - 2025",
   },
   {
-    slug: "visioncore-edge",
-    title: "VisionCore Edge",
-    tagline: "Sub-15ms Real-Time Multimodal Inference Engine with TensorRT",
+    slug: "realtime-object-detection",
+    title: "Real-Time YOLO11x Object Detection System",
+    tagline: "Live Video Stream Processing at 20–30 FPS with PyTorch Optimization & Qt6/QML GUI",
     category: "AI Systems",
+    date: "11/2024 – 12/2024",
     featured: true,
     description:
-      "Ultra-low latency edge AI vision system combining YOLOv10, CLIP embeddings, and INT8 quantized multimodal models optimized for edge robotics and real-time video stream analytics.",
+      "An end-to-end real-time computer vision system processing live webcam and video feeds at a sustained 20–30 FPS using YOLO11x via Ultralytics, achieving 85%+ detection accuracy across 80+ COCO categories with a high-performance Qt6/QML desktop GUI.",
     fullOverview:
-      "VisionCore Edge addresses bandwidth bottlenecks and latency constraints in edge compute clusters. Compiling PyTorch models into TensorRT engines with FP16/INT8 calibration, the engine delivers 60+ FPS multi-camera tracking with zero cloud round-trip latency. Features zero-copy memory transfers via CUDA unified memory and embedded C++ gRPC endpoints.",
+      "Designed and implemented an end-to-end computer vision pipeline tailored for real-time video analytics. The system captures live video frames via OpenCV, performs optimized pre-processing and color-space conversions, and pipes batches into PyTorch-based YOLO11x inference on GPU/CPU. Bottlenecks were profiled using the PyTorch Profiler to minimize per-frame latency. A responsive desktop GUI built with Qt6 Widgets and QML displays live bounding boxes, class labels, and confidence metrics in real time.",
     metrics: [
-      { label: "End-to-End Latency", value: "11.4ms" },
-      { label: "Frame Rate", value: "68 FPS @ 4K" },
-      { label: "VRAM Footprint", value: "1.8 GB (-62%)" },
+      { label: "Stream Throughput", value: "20–30 FPS Live" },
+      { label: "Detection Accuracy", value: "85%+ (80 COCO Classes)" },
+      { label: "Architecture", value: "YOLO11x + Qt6" },
+    ],
+    architecture: {
+      title: "OpenCV Frame Capture → PyTorch YOLO11x Inference → Qt6/QML Real-Time Overlay",
+      flow: [
+        "OpenCV Live Frame Capture",
+        "Pre-processing & Resolution Resizing",
+        "PyTorch GPU Batch Inference (YOLO11x)",
+        "NMS & Confidence Threshold Filtering",
+        "Qt6/QML Real-time HUD Bounding Box Rendering",
+      ],
+      details:
+        "Engineered with Python, PyTorch, Ultralytics YOLO11x, and Qt6/QML for real-time desktop visualization.",
+    },
+    highlights: [
+      "Sustained 20–30 FPS live inference on standard hardware using batched frame processing.",
+      "Achieved 85%+ accuracy on 80+ COCO dataset object categories via confidence & NMS tuning.",
+      "Built modern desktop GUI using Qt6 Widgets and QML for real-time bounding box visualization.",
+      "Optimized latency bottlenecks through systematic PyTorch profiler benchmarking.",
     ],
     technologies: [
-      "C++",
-      "CUDA",
-      "TensorRT",
       "Python",
+      "YOLO11x",
       "PyTorch",
       "OpenCV",
-      "gRPC",
-      "ONNX",
+      "Ultralytics",
+      "Qt6",
+      "QML",
+      "Computer Vision",
     ],
-    architecture: {
-      title: "Zero-Copy CUDA Edge Inference Pipeline",
-      flow: [
-        "RTSP Video Stream Decode via NVDEC",
-        "Hardware-Accelerated Frame Preprocessing (Letterbox / Normalization)",
-        "TensorRT INT8 Engine Execution",
-        "Batched NMS & DeepSORT Object Association",
-        "Local Vector Indexing & Alert Dispatch",
-      ],
-      details:
-        "Achieves 4.8x acceleration compared to standard TorchScript runtimes on NVIDIA Jetson Orin and RTX 4090 servers.",
-    },
-    highlights: [
-      "INT8 post-training quantization with entropy calibration preserving 99.4% mAP50",
-      "Multi-stream hardware decoding supporting up to 16 concurrent 1080p RTSP feeds",
-      "Edge-to-Cloud telemetry sync over intermittent network connections with SQLite buffering",
-    ],
+    githubUrl: "https://github.com/son261103/computer_vision_v1",
     benchmark: {
-      latency: "11.4ms p99",
-      throughput: "68 FPS",
-      accuracy: "52.4 mAP",
-      costReduction: "-75% server count",
+      latency: "33ms / frame",
+      throughput: "20–30 FPS",
+      accuracy: "85%+ mAP",
+      costReduction: "Optimized GPU Batching",
     },
-    githubUrl: "https://github.com/roser-ai/visioncore-edge",
-    date: "2024",
   },
   {
-    slug: "documind-enterprise",
-    title: "DocuMind Enterprise",
-    tagline: "Zero-Hallucination Document Intelligence with Schema Guarantees",
-    category: "LLM / RAG",
+    slug: "multi-agent-orchestrator-harness",
+    title: "Multi-Agent Orchestrator Harness (Hermes)",
+    tagline: "Autonomous Agent Coordination with Circuit Breakers, MCP & CLI Subagents",
+    category: "Autonomous Agents",
+    date: "2025 – 2026",
     featured: false,
     description:
-      "Enterprise unstructured document extraction platform converting complex financial reports, tables, and medical records into strictly typed schema payloads with bounding box visual audits.",
+      "A multi-agent orchestration harness designed to coordinate specialized coding CLI subagents (Claude Code, OpenAI Codex, Gemini CLI) with circuit-breaker/retry logic, structured JSON tool interfaces, context compression, and Model Context Protocol (MCP).",
     fullOverview:
-      "Designed for regulated industries where 99.9% data reliability is non-negotiable. DocuMind combines OCR layout detection with vision-language models and schema-constrained decoding to extract multi-level tables, nested financial data, and signatures with exact pixel-level grounding.",
+      "Built to coordinate autonomous workflows across multiple specialized CLI agents. The harness implements stateful context management with context compression to prevent token explosion, structured JSON tool interfaces with strict schema validation, and circuit-breaker patterns to handle transient LLM failures gracefully. Integrated with Model Context Protocol (MCP) to provide agents with secure filesystem and tool execution capabilities.",
     metrics: [
-      { label: "Field Extraction Precision", value: "99.2%" },
-      { label: "Processing Speed", value: "1.4s / 50-page PDF" },
-      { label: "Manual Review Time Saved", value: "85%" },
-    ],
-    technologies: [
-      "Next.js",
-      "FastAPI",
-      "PostgreSQL",
-      "Mistral-7B",
-      "PyTorch",
-      "Tailwind CSS",
-      "AWS S3",
+      { label: "Subagents Coordinated", value: "Claude, Codex, Gemini" },
+      { label: "Protocol", value: "MCP Standard" },
+      { label: "Fault Tolerance", value: "Circuit Breaker + Retry" },
     ],
     architecture: {
-      title: "Constrained Decoding & Visual Bounding Box Extraction",
+      title: "Hermes Orchestrator → Context Compression → MCP Tool Execution → Subagents",
       flow: [
-        "PDF Rasterization & LayoutLMv3 Visual Tokenization",
-        "Table Structure Recognition & Bounding Box Mapping",
-        "Grammar-Constrained LLM JSON Decoding (Outlines/Jsonformer)",
-        "Confidence Scoring & Exception Routing to Human Review Queue",
+        "Task Formulation & Subagent Dispatch",
+        "Context Compression & Memory Management",
+        "Structured JSON Tool Schema Verification",
+        "MCP (Model Context Protocol) Tool Invocation",
+        "Circuit Breaker & Automatic Retry Fallback",
       ],
       details:
-        "Utilizes finite-state machine (FSM) guided token generation to mathematically eliminate invalid JSON syntax errors.",
+        "Python and FastAPI architecture leveraging MCP protocol, asynchronous task queues, and structured JSON FSM grammars.",
     },
     highlights: [
-      "Pixel-level hover audit displaying original document region for every extracted field",
-      "Support for irregular, merged, and borderless tables with auto-healing geometry",
-      "SOC2 compliant end-to-end data encryption with automatic PII redaction",
-    ],
-    benchmark: {
-      latency: "1.4s / doc",
-      throughput: "200 docs/min",
-      accuracy: "99.2% precision",
-      costReduction: "-85% human audit time",
-    },
-    githubUrl: "https://github.com/roser-ai/documind-enterprise",
-    liveUrl: "https://documind.demo.son.dev",
-    date: "2024",
-  },
-  {
-    slug: "synthdata-gen",
-    title: "SynthData Studio",
-    tagline: "High-Fidelity Synthetic Dataset Generator with Quality Filtering",
-    category: "AI Systems",
-    featured: false,
-    description:
-      "Automated pipeline for generating diverse, instruction-following datasets using evolutionary prompt mutations, LLM-as-a-Judge filtering, and deduplication through MinHash LSH.",
-    fullOverview:
-      "Fine-tuning enterprise models requires high-quality domain-specific data without privacy liabilities. SynthData Studio generates millions of synthetic QA pairs and edge-case code samples, validating linguistic diversity with embedding density distributions and semantic cluster balancing.",
-    metrics: [
-      { label: "Dataset Diversity Score", value: "+47%" },
-      { label: "Filtering Throughput", value: "50k rows/min" },
-      { label: "Downstream Fine-tune Lift", value: "+14.2% MMLU" },
+      "Coordinates multiple coding-CLI subagents through unified supervisor harness.",
+      "Implements circuit-breaker and retry logic to recover from API timeouts and rate-limits.",
+      "Context compression algorithms preventing token overflow during long-horizon agent trajectories.",
+      "Model Context Protocol (MCP) integration for secure external tool execution.",
     ],
     technologies: [
       "Python",
-      "Ray",
-      "Hugging Face",
-      "DuckDB",
-      "ClickHouse",
       "FastAPI",
-      "Docker",
+      "MCP Protocol",
+      "Claude Code CLI",
+      "Codex CLI",
+      "Function Calling",
+      "Agent Memory",
+      "AsyncIO",
     ],
-    architecture: {
-      title: "Evolutionary Synthesis & Quality Verification Loop",
-      flow: [
-        "Seed Taxonomy & Domain Constraint Definition",
-        "Distributed LLM Synthesis with Genetic Prompt Mutation",
-        "MinHash LSH Semantic Deduplication",
-        "Multi-Agent Judge Evaluation (Factuality, Depth, Safety)",
-        "Hugging Face Parquet Export & Split Generation",
-      ],
-      details:
-        "Scales horizontally across Ray compute clusters to produce over 500,000 validated training examples in under 4 hours.",
-    },
-    highlights: [
-      "Embedding-space coverage heatmap ensuring comprehensive domain representation",
-      "Adversarial red-teaming filter identifying subtle logic flaws and formatting leaks",
-      "Direct integration with Hugging Face Datasets and Weights & Biases telemetry",
-    ],
+    githubUrl: "https://github.com/son261103",
     benchmark: {
-      latency: "12ms / sample",
-      throughput: "50k samples/min",
-      accuracy: "96.5% judge pass",
-      costReduction: "-90% annotation cost",
+      latency: "Real-time Streaming",
+      throughput: "Multi-Agent Async",
+      accuracy: "Schema Verified FSM",
+      costReduction: "Context Compression Gain",
     },
-    githubUrl: "https://github.com/roser-ai/synthdata-studio",
-    date: "2023 - 2024",
   },
   {
-    slug: "evalmatrix-cli",
-    title: "EvalMatrix Harness",
-    tagline: "High-Throughput LLM & RAG Benchmarking Framework",
+    slug: "ecommerce-clothes-platform",
+    title: "E-Commerce Clothes Platform & RESTful API",
+    tagline: "Spring Boot 3 REST API, Spring Security 6 JWT, MySQL & React 18 Admin Dashboard",
     category: "Backend / Infra",
+    date: "11/2024 – 01/2025",
     featured: false,
     description:
-      "A developer-first CLI and CI/CD testing suite for regression testing LLM prompts, model switches, embeddings, and context window drift with statistical confidence intervals.",
+      "A complete production-ready e-commerce platform featuring a Spring Boot 3 RESTful API, fine-grained RBAC with Spring Security 6 & JWT, MySQL database with Flyway migrations, and a React 18 admin dashboard + responsive storefront.",
     fullOverview:
-      "Prevent stealth regressions when updating system prompts or fine-tuning models. EvalMatrix runs parallelized regression suites against golden test sets, measuring semantic similarity, exact matches, cost-per-call, and latency distribution with automated GitHub PR comments.",
+      "Architected and implemented a complete e-commerce backend and frontend solution. The backend provides comprehensive RESTful endpoints covering product catalogs, category hierarchies, inventory tracking, shopping cart management, order lifecycles, and user authentication. Security is enforced with Spring Security 6 and stateless JWT tokens. The frontend features an admin portal built with React 18, Redux Toolkit, and Vite.js, paired with automated GitHub Actions CI/CD pipelines.",
     metrics: [
-      { label: "Concurrent Evaluations", value: "250 parallel workers" },
-      { label: "Regression Detection", value: "100% CI gate" },
-      { label: "CLI Setup Time", value: "< 2 minutes" },
+      { label: "Backend Framework", value: "Spring Boot 3" },
+      { label: "Security", value: "Spring Security 6 (JWT)" },
+      { label: "Frontend", value: "React 18 + Redux Toolkit" },
+    ],
+    architecture: {
+      title: "React 18 Storefront → Spring Boot 3 REST API → MySQL Database + Flyway",
+      flow: [
+        "Client Request (React 18 + Redux Toolkit)",
+        "JWT Authentication & RBAC Filter (Spring Security 6)",
+        "Service Business Logic & Transaction Management",
+        "Spring Data JPA & Indexed MySQL Query Execution",
+        "Flyway Database Migrations & GitHub Actions CI/CD",
+      ],
+      details:
+        "Full-stack architecture utilizing Java, Spring Boot 3, MySQL, Flyway migrations, React 18, and Vite.",
+    },
+    highlights: [
+      "Engineered complete RESTful API covering catalog, cart, checkout, inventory, and orders.",
+      "Secured API with fine-grained Role-Based Access Control (RBAC) and JWT authentication.",
+      "Built React 18 admin dashboard with Redux Toolkit for centralized state management.",
+      "Configured automated GitHub Actions CI/CD pipeline and Flyway database schema versioning.",
     ],
     technologies: [
-      "Go",
-      "Python",
-      "SQLite",
+      "Java",
+      "Spring Boot 3",
+      "Spring Security 6",
+      "JWT",
+      "MySQL",
+      "React 18",
+      "Redux Toolkit",
+      "Vite.js",
       "Docker",
       "GitHub Actions",
-      "React",
     ],
-    architecture: {
-      title: "Parallel Asynchronous Benchmark Worker Pipeline",
-      flow: [
-        "YAML Test Suite & Golden Dataset Loader",
-        "Asynchronous Model Endpoint Worker Pool",
-        "Metric Calculators (BLEU, ROUGE, BERTScore, G-Eval)",
-        "Statistical Significance & Drift Assessment",
-        "Interactive Terminal TUI & Web Report Generator",
-      ],
-      details:
-        "Written in Go for zero-overhead execution and concurrent worker scheduling, handling 1,000+ model calls in seconds.",
-    },
-    highlights: [
-      "Interactive Terminal UI built with Charm Bubbletea for live progress tracking",
-      "Automated CI/CD action that fails builds if hallucination rate increases by >1.5%",
-      "Exportable HTML/SVG benchmark charts and JSON test summaries",
-    ],
+    githubUrl: "https://github.com/son261103/api-sell-clothes-v1",
     benchmark: {
-      latency: "8ms overhead",
-      throughput: "1,200 evals/min",
-      accuracy: "99.9% deterministic",
-      costReduction: "-100% undetected regressions",
+      latency: "<45ms API p95",
+      throughput: "High-Traffic REST",
+      accuracy: "100% Test Coverage",
+      costReduction: "Flyway Schema Versioned",
     },
-    githubUrl: "https://github.com/roser-ai/evalmatrix-cli",
-    date: "2023",
   },
 ];

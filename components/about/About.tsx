@@ -4,108 +4,107 @@ import React from "react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Stats } from "./Stats";
 import { Reveal } from "@/components/ui/Reveal";
+import { useI18n } from "@/lib/i18n/I18nProvider";
 import {
   BrainCircuit,
-  Workflow,
-  Cpu,
-  Layers,
-  ShieldCheck,
+  Bot,
+  Network,
   Server,
+  Code2,
+  ScanEye,
+  GraduationCap,
 } from "lucide-react";
 
-const FOCUS_AREAS = [
-  {
-    title: "AI Engineering & LLM Apps",
-    desc: "Production RAG architectures, contextual reranking, vector indexing (Qdrant/pgvector), and self-reflective query loops.",
-    icon: BrainCircuit,
-  },
-  {
-    title: "Autonomous Agentic Workflows",
-    desc: "Hierarchical supervisor DAGs, sandboxed tool execution, AST-guided code modifications, and state recovery rollbacks.",
-    icon: Workflow,
-  },
-  {
-    title: "Inference & Quantization",
-    desc: "Model serving with vLLM continuous batching, TensorRT C++ acceleration, INT8/FP8 quantization, and KV-cache optimizations.",
-    icon: Cpu,
-  },
-  {
-    title: "Resilient Backend Infrastructure",
-    desc: "High-throughput asynchronous APIs (FastAPI, Node.js, Go), gRPC streaming, Redis semantic caching, and PostgreSQL schemas.",
-    icon: Server,
-  },
-  {
-    title: "Hallucination Guardrails",
-    desc: "Constrained JSON decoding with FSM grammars, NLI factual consistency checks, and bounding-box visual grounding.",
-    icon: ShieldCheck,
-  },
-  {
-    title: "Full-Stack System Architecture",
-    desc: "Modern reactive user interfaces with Next.js 15, TypeScript, WebSockets telemetry, and distributed cloud deployments.",
-    icon: Layers,
-  },
-];
+const FOCUS_ICONS = [BrainCircuit, Bot, Network, Server, Code2, ScanEye];
 
 export function About() {
+  const { t } = useI18n();
+
   return (
     <section id="about" className="relative py-14 sm:py-16 overflow-hidden">
       {/* Background technical accents */}
       <div className="absolute inset-0 bg-tech-dots opacity-20 pointer-events-none" />
 
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <SectionHeading
-          badge="01 // System Philosophy"
-          title="Engineering Intelligent Systems"
-          subtitle="Moving beyond prompt engineering into deterministic, production-grade AI infrastructure and scalable software architectures."
+          badge={t.about.badge}
+          title={t.about.title}
+          subtitle={t.about.subtitle}
+          align="center"
         />
 
         {/* Large Editorial Statement */}
         <Reveal preset="fadeUp" delay={0.15}>
-          <div className="p-6 sm:p-10 rounded-2xl bg-white dark:bg-[#0C1110] border border-[#D5E2DE] dark:border-[#24302E] relative overflow-hidden shadow-sm dark:shadow-2xl">
-            <div className="space-y-4 max-w-3xl">
+          <div className="p-6 sm:p-10 rounded-3xl bg-white dark:bg-[#0C1110] border border-[#D5E2DE] dark:border-[#24302E] relative overflow-hidden shadow-sm dark:shadow-2xl">
+            <div className="space-y-4 max-w-5xl">
               <div className="text-xs font-mono-tech text-[#267A66] dark:text-[#9BCEC1] uppercase tracking-widest flex items-center gap-2 font-semibold">
                 <span className="w-2 h-2 rounded-full bg-[#267A66] dark:bg-[#9BCEC1]" />
-                <span>The Core Engineering Tenet</span>
+                <span>{t.about.tenetBadge}</span>
               </div>
 
               <blockquote className="text-xl sm:text-3xl md:text-4xl font-bold tracking-tight text-[#0B1614] dark:text-[#F1F7F5] leading-tight">
-                &ldquo;I don&apos;t just build software.{" "}
+                &ldquo;{t.about.quote1}
                 <span className="text-[#267A66] dark:text-[#9BCEC1]">
-                  I build systems that learn, automate and scale.
+                  {t.about.quoteHighlight}
                 </span>
-                &rdquo;
+                {t.about.quote2}&rdquo;
               </blockquote>
 
               <p className="text-sm sm:text-base text-[#334A44] dark:text-[#A9B8B4] leading-relaxed pt-1">
-                Modern AI engineering is fundamentally systems engineering. It requires bridging cutting-edge neural models with battle-tested backend resilience, strict schema verification, low latency inference runtimes, and observable metrics.
+                {t.about.paragraph}
               </p>
             </div>
           </div>
         </Reveal>
 
+        {/* Education & Credentials */}
+        <div className="pt-6">
+          <Reveal preset="fadeUp" delay={0.2}>
+            <div className="p-5 sm:p-6 rounded-2xl bg-[#F1F6F4] dark:bg-[#111817] border border-[#D5E2DE] dark:border-[#24302E] flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-xl bg-white dark:bg-[#17201F] border border-[#D5E2DE] dark:border-[#24302E] flex items-center justify-center text-[#267A66] dark:text-[#9BCEC1] shrink-0 shadow-xs">
+                  <GraduationCap size={20} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-sm text-[#0B1614] dark:text-[#F1F7F5]">
+                    {t.about.educationTitle}
+                  </h4>
+                  <p className="text-xs text-[#334A44] dark:text-[#A9B8B4]">
+                    {t.about.educationDegree}
+                  </p>
+                </div>
+              </div>
+
+              <div className="text-xs font-mono-tech text-[#627A74] dark:text-[#6F7E7A] bg-white dark:bg-[#0C1110] px-3.5 py-1.5 rounded-xl border border-[#D5E2DE] dark:border-[#24302E]">
+                {t.about.devmasterCourse}
+              </div>
+            </div>
+          </Reveal>
+        </div>
+
         {/* Focus Areas Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 pt-8">
-          {FOCUS_AREAS.map((area, idx) => {
-            const Icon = area.icon;
+          {t.about.focusAreas.map((area, idx) => {
+            const Icon = FOCUS_ICONS[idx] || BrainCircuit;
             return (
               <Reveal key={area.title} preset="fadeUp" delay={0.08 * (idx + 1)}>
-                <div className="p-5 rounded-2xl bg-white dark:bg-[#111817] border border-[#D5E2DE] dark:border-[#24302E] hover:border-[#267A66]/50 dark:hover:border-[#9BCEC1]/40 shadow-sm dark:shadow-none transition-all duration-300 h-full flex flex-col justify-between group">
+                <div className="p-6 rounded-2xl bg-white dark:bg-[#111817] border border-[#D5E2DE] dark:border-[#24302E] hover:border-[#267A66]/50 dark:hover:border-[#9BCEC1]/40 shadow-sm dark:shadow-none transition-all duration-300 h-full flex flex-col justify-between group">
                   <div>
                     <div className="w-9 h-9 rounded-xl bg-[#F1F6F4] dark:bg-[#17201F] border border-[#D5E2DE] dark:border-[#24302E] group-hover:border-[#267A66]/50 dark:group-hover:border-[#9BCEC1]/40 flex items-center justify-center mb-3 transition-colors">
                       <Icon size={18} className="text-[#267A66] dark:text-[#9BCEC1]" />
                     </div>
-                    <h3 className="text-sm font-bold text-[#0B1614] dark:text-[#F1F7F5] group-hover:text-[#267A66] dark:group-hover:text-[#9BCEC1] transition-colors mb-1.5">
+                    <h3 className="text-sm sm:text-base font-bold text-[#0B1614] dark:text-[#F1F7F5] group-hover:text-[#267A66] dark:group-hover:text-[#9BCEC1] transition-colors mb-2">
                       {area.title}
                     </h3>
-                    <p className="text-xs text-[#334A44] dark:text-[#A9B8B4] leading-relaxed">
+                    <p className="text-xs sm:text-sm text-[#334A44] dark:text-[#A9B8B4] leading-relaxed">
                       {area.desc}
                     </p>
                   </div>
 
-                  <div className="pt-3 mt-3 border-t border-[#D5E2DE] dark:border-[#24302E]/60 flex items-center justify-between text-[11px] font-mono-tech text-[#627A74] dark:text-[#6F7E7A]">
-                    <span>{`0${idx + 1} // ARCH`}</span>
+                  <div className="pt-3 mt-4 border-t border-[#D5E2DE] dark:border-[#24302E]/60 flex items-center justify-between text-[11px] font-mono-tech text-[#627A74] dark:text-[#6F7E7A]">
+                    <span>{`0${idx + 1} // TECH`}</span>
                     <span className="group-hover:text-[#267A66] dark:group-hover:text-[#9BCEC1] font-semibold transition-colors">
-                      Active Focus →
+                      Core Skill →
                     </span>
                   </div>
                 </div>

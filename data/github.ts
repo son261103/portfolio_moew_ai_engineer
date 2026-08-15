@@ -25,7 +25,7 @@ export interface GithubActivityData {
 // 100% Deterministic 26-week heatmap generator (zero hydration mismatch)
 function generateDeterministicHeatmap() {
   const weeks = [];
-  const baseTimestamp = 1723651200000; // Fixed deterministic anchor epoch
+  const baseTimestamp = 1723651200000;
 
   for (let w = 0; w < 26; w++) {
     const days = [];
@@ -34,7 +34,6 @@ function generateDeterministicHeatmap() {
       const dayDate = new Date(baseTimestamp + dayOffset);
       const dateStr = dayDate.toISOString().split("T")[0];
 
-      // Deterministic pseudo-random value in [0, 1) based on (w, d)
       const pseudoVal = Math.abs(Math.sin((w + 1) * 12.9898 + (d + 1) * 78.233) * 43758.5453) % 1;
       const isWeekend = d === 0 || d === 6;
       const threshold = isWeekend ? 0.45 : 0.2;
@@ -63,44 +62,45 @@ function generateDeterministicHeatmap() {
 }
 
 export const GITHUB_DATA: GithubActivityData = {
-  username: "roser-ai",
-  totalContributions: 1482,
-  currentStreak: 47,
-  longestStreak: 84,
-  totalRepositories: 38,
-  totalStars: 420,
+  username: "son261103",
+  totalContributions: 624,
+  currentStreak: 28,
+  longestStreak: 54,
+  totalRepositories: 18,
+  totalStars: 45,
   languages: [
-    { name: "Python", percentage: 46, color: "#9BCEC1" },
-    { name: "TypeScript", percentage: 28, color: "#6FAFA0" },
-    { name: "C++ / CUDA", percentage: 14, color: "#C9E6DF" },
-    { name: "Go & SQL", percentage: 12, color: "#A9B8B4" },
+    { name: "Python", percentage: 52, color: "#9BCEC1" },
+    { name: "Java", percentage: 24, color: "#6FAFA0" },
+    { name: "JavaScript / TypeScript", percentage: 16, color: "#C9E6DF" },
+    { name: "SQL & Shell", percentage: 8, color: "#A9B8B4" },
   ],
   recentActivity: [
     {
-      type: "release",
-      repo: "roser-ai/omnirag-engine",
-      message: "v2.4.0 — Integrated Reciprocal Rank Fusion & Neo4j sub-graph traversals",
-      timeAgo: "2 hours ago",
-    },
-    {
       type: "commit",
-      repo: "roser-ai/neuralflow-agent",
-      message: "feat(sandbox): add AST-guided safe modification verification hooks",
-      timeAgo: "5 hours ago",
+      repo: "son261103/computer_vision_v1",
+      message: "feat(yolo): fine-tune NMS thresholds and PyTorch GPU batching pipeline",
+      timeAgo: "2 hours ago",
       branch: "main",
     },
     {
-      type: "pr",
-      repo: "roser-ai/visioncore-edge",
-      message: "Merge PR #42: INT8 entropy calibration quantization script for Jetson Orin",
-      timeAgo: "Yesterday",
+      type: "commit",
+      repo: "son261103/api-sell-clothes-v1",
+      message: "feat(security): configure fine-grained RBAC with Spring Security 6 & JWT filters",
+      timeAgo: "1 day ago",
+      branch: "main",
     },
     {
       type: "commit",
-      repo: "roser-ai/evalmatrix-cli",
-      message: "perf(benchmark): optimize concurrent worker pool memory allocation in Go",
-      timeAgo: "2 days ago",
-      branch: "feat/go-routines",
+      repo: "son261103/graphrag-docling-service",
+      message: "feat(rag): add Docling layout parser & semantic node extraction layer",
+      timeAgo: "3 days ago",
+      branch: "feat/graph-merge",
+    },
+    {
+      type: "pr",
+      repo: "son261103/agent-harness-mcp",
+      message: "Merge PR #4: circuit-breaker fallback for multi-provider CLI subagents",
+      timeAgo: "5 days ago",
     },
   ],
   weeks: generateDeterministicHeatmap(),
