@@ -84,6 +84,7 @@ export default function RootLayout({
     <html
       lang="vi"
       suppressHydrationWarning
+      data-scroll-behavior="smooth"
       className={`${geistSans.variable} ${geistMono.variable} antialiased scroll-smooth`}
     >
       <head>
