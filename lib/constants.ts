@@ -13,7 +13,7 @@ export const SITE_CONFIG = {
   location: "Bac Tu Liem, Ha Noi, Vietnam",
   github: "https://github.com/son261103",
   githubUsername: "son261103",
-  linkedin: "https://linkedin.com/in/son261103",
+  linkedin: "https://www.linkedin.com/in/ph%E1%BA%A1m-s%C6%A1n-b36282224/",
   status: {
     available: true,
     message: "Open for Junior AI Engineer & Backend Developer Roles",
