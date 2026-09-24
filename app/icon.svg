@@ -1,0 +1,66 @@
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- White Squircle Background with crisp subtle border -->
+  <rect width="512" height="512" rx="112" fill="#FFFFFF" />
+  <rect x="4" y="4" width="504" height="504" rx="108" fill="none" stroke="#E2E8F0" stroke-width="8" />
+
+  <!-- Cyber Headphone Arc (Dark Slate #0F172A) -->
+  <path d="M 108 244 C 108 90, 404 90, 404 244" fill="none" stroke="#0F172A" stroke-width="32" stroke-linecap="round" />
+
+  <!-- Anime Cat Ears (Large, expressive) -->
+  <!-- Left Ear -->
+  <path d="M 112 216 L 92 68 C 120 76, 214 116, 208 178 Z" fill="#0F172A" />
+  <path d="M 124 190 L 112 96 C 132 104, 186 132, 182 168 Z" fill="#FB7185" />
+
+  <!-- Right Ear -->
+  <path d="M 400 216 L 420 68 C 392 76, 298 116, 304 178 Z" fill="#0F172A" />
+  <path d="M 388 190 L 400 96 C 380 104, 326 132, 330 168 Z" fill="#FB7185" />
+
+  <!-- Cat Head Outline: Chubby cute anime face -->
+  <ellipse cx="256" cy="274" rx="156" ry="140" fill="#0F172A" />
+  <ellipse cx="256" cy="274" rx="140" ry="126" fill="#FFFFFF" />
+
+  <!-- Cyber Headphone Earcups (Left & Right) in Brand Teal #0D9488 -->
+  <rect x="68" y="196" width="56" height="106" rx="26" fill="#0D9488" />
+  <rect x="80" y="214" width="30" height="70" rx="14" fill="#9BCEC1" />
+  
+  <rect x="388" y="196" width="56" height="106" rx="26" fill="#0D9488" />
+  <rect x="402" y="214" width="30" height="70" rx="14" fill="#9BCEC1" />
+
+  <!-- Big Expressive Anime Eyes (Sparkling, dark with bright reflection stars) -->
+  <!-- Left Eye -->
+  <ellipse cx="198" cy="264" rx="30" ry="40" fill="#0F172A" />
+  <circle cx="208" cy="248" r="14" fill="#FFFFFF" />
+  <circle cx="188" cy="280" r="7" fill="#9BCEC1" />
+  <circle cx="212" cy="278" r="5" fill="#FFFFFF" />
+
+  <!-- Right Eye -->
+  <ellipse cx="314" cy="264" rx="30" ry="40" fill="#0F172A" />
+  <circle cx="324" cy="248" r="14" fill="#FFFFFF" />
+  <circle cx="304" cy="280" r="7" fill="#9BCEC1" />
+  <circle cx="328" cy="278" r="5" fill="#FFFFFF" />
+
+  <!-- Cute Cat Nose & :3 Mouth -->
+  <polygon points="256,290 248,280 264,280" fill="#FB7185" />
+  <path d="M 238 298 C 246 308, 254 308, 256 298 C 258 308, 266 308, 274 298" 
+        fill="none" stroke="#0F172A" stroke-width="8" stroke-linecap="round" />
+
+  <!-- Anime Cheek Blush (Chubby pink ///) -->
+  <g fill="#FB7185" opacity="0.85">
+    <ellipse cx="152" cy="302" rx="22" ry="12" />
+    <ellipse cx="360" cy="302" rx="22" ry="12" />
+  </g>
+
+  <!-- Cyber Whisker Marks on Cheeks -->
+  <g stroke="#0D9488" stroke-width="6" stroke-linecap="round">
+    <line x1="126" y1="286" x2="148" y2="284" />
+    <line x1="124" y1="304" x2="146" y2="306" />
+    
+    <line x1="386" y1="286" x2="364" y2="284" />
+    <line x1="388" y1="304" x2="366" y2="306" />
+  </g>
+
+  <!-- Cute Forehead AI Sparkle ✦ -->
+  <path d="M 256 174 Q 256 194 238 194 Q 256 194 256 214 Q 256 194 274 194 Q 256 194 256 174 Z" fill="#0D9488" />
+  <circle cx="256" cy="194" r="4" fill="#FFFFFF" />
+</svg>
